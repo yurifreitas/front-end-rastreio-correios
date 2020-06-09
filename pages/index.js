@@ -3,7 +3,9 @@ import Axios from 'axios';
 import {useQuery} from 'react-query';
 
 const getObject = async () =>{
-  const {data} = await Axios.get("/api/rastreio");
+  var object = window.location.pathname;
+  var url = "https://api-rastrei-correios.herokuapp.com/"+object;
+  const {data} = await Axios.get(url);
   return data;
 }
 
@@ -12,23 +14,18 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Rastreio.io</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Busque sua encomenda
         </h1>
-
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
         <div className="grid">
           {data && (<a href="https://nextjs.org/docs" className="card">
-            <h3>{data.objeto.numero} &rarr;</h3>
-            <p>{data.objeto.erro}</p>
+            <h3>{data.objeto.numero ?data.objeto.numero:""} &rarr;</h3>
+            <p>{data.objeto.erro ?data.objeto.erro:"" }</p>
           </a>)}
         </div>
       </main>
@@ -184,4 +181,5 @@ export default function Home() {
       `}</style>
     </div>
   )
+
 }
