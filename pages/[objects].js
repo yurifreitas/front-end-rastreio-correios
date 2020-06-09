@@ -15,7 +15,7 @@ const getObject = async () =>{
   return data;
 }
 
-export default function Home() {
+export default function Objects() {
   const {data} = useQuery("objects",getObject);
   const router = useRouter()
    const [query, setQuery] = useState('')
@@ -23,8 +23,9 @@ export default function Home() {
    const handleParam = setValue => e => setValue(e.target.value)
 
 
-  const handleSubmit = preventDefault(() => {
-  
+  const handleSubmit = preventDefault((e) => {
+      console.log(query);
+    window.location = query;
   })
 
   return (
