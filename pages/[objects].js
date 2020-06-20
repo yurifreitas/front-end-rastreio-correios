@@ -12,10 +12,11 @@ const getObject = async () =>{
   var object = window.location.pathname;
   var url = "https://api-rastrei-correios.herokuapp.com/"+object;
   const {data} = await Axios.get(url);
+  console.log(data);
   return data;
 }
 
-export default function Objects() {
+export default function Home() {
   const {data} = useQuery("objects",getObject);
   const router = useRouter()
    const [query, setQuery] = useState('')
@@ -23,8 +24,7 @@ export default function Objects() {
    const handleParam = setValue => e => setValue(e.target.value)
 
 
-  const handleSubmit = preventDefault((e) => {
-      console.log(query);
+  const handleSubmit = preventDefault(() => {
     window.location = query;
   })
 
@@ -41,6 +41,7 @@ export default function Objects() {
         </h1>
         
         <form onSubmit={handleSubmit}>
+        <div className="field">
        <input
          type='text'
          name='q'
@@ -49,12 +50,22 @@ export default function Objects() {
          placeholder='Search'
          aria-label='Search'
        />
+       </div>
+       <button>Rastrear</button>
      </form>
         <div className="grid">
-          {data && (<a className="card">
+          
+          {
+          
+          data&&
+        
+          <a className="card">
             <h3>{data.objeto.numero ?data.objeto.numero:""} &rarr;</h3>
             <p>{data.objeto.erro ?data.objeto.erro:"" }</p>
-          </a>)}
+          </a>
+          
+           
+          }
         </div>
       </main>
 
@@ -73,7 +84,7 @@ export default function Objects() {
         }
 
         main {
-          padding: 5rem 0;
+          padding: 1rem 0;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -104,6 +115,74 @@ export default function Objects() {
           color: inherit;
           text-decoration: none;
         }
+        button{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #4CAF50; /* Green */
+          border: none;
+          color: white;
+          padding: 1em 4em;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 28px;
+          margin:1em 0;
+        }
+        .field {
+          width: 100%;
+          height: 56px;
+          border-radius: 4px;
+          position: relative;
+          background-color: rgba(255,255,255,0.8);
+          transition: 0.3s all;
+        }
+        .field:hover {
+          background-color: rgba(255, 255, 255, 0.8);
+          box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        .field.focussed input {
+          padding: 24px 16px 8px 16px;
+        }
+        .field.focussed input + label {
+          top: 4px;
+          opacity: 1;
+          color: #28cc70;
+        }
+        .field.locked {
+         pointer-events: none;
+        }
+        .field input {
+          width: 100%;
+          height: 56px;
+          position: relative;
+          padding: 0px 16px;
+          border: none;
+          border-radius: 4px;
+          font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: normal;
+          background-color: transparent;
+          color: #282828;
+          outline: none;
+          box-shadow: 0px 4px 20px 0px transparent;
+          transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out, 0.1s padding ease-in-out;
+          -webkit-appearance: none;
+        }
+        .field input::-webkit-input-placeholder {
+          color: rgba(255, 255, 255, 0.8);
+        }
+        .field input::-moz-placeholder {
+          color: rgba(255, 255, 255, 0.8);
+        }
+        .field input:-ms-input-placeholder {
+          color: rgba(255, 255, 255, 0.8);
+        }
+        .field input:-moz-placeholder {
+          color: rgba(255, 255, 255, 0.8);
+        }
 
         .title a {
           color: #0070f3;
@@ -119,7 +198,8 @@ export default function Objects() {
         .title {
           margin: 0;
           line-height: 1.15;
-          font-size: 4rem;
+          font-size:2rem;
+          margin-bottom: 2em;
         }
 
         .title,
