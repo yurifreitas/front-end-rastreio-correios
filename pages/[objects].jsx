@@ -17,12 +17,10 @@ const getObject = async () =>{
 }
 
 export default function Home() {
-  const {data} = useQuery("objects",getObject);
-  const router = useRouter()
-   const [query, setQuery] = useState('')
-
-   const handleParam = setValue => e => setValue(e.target.value)
-
+  const {data} = useQuery("objects",getObject)
+  const [query, setQuery] = useState('')
+  
+  const handleParam = setValue => e => setValue(e.target.value)
 
   const handleSubmit = preventDefault(() => {
     window.location = query;
@@ -32,7 +30,7 @@ export default function Home() {
     <div className="container">
       <Head>
         <title>Rastreio.io</title>
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="Description" CONTENT="Rastreio de encomenda" />
       </Head>
 
       <main>
@@ -47,8 +45,8 @@ export default function Home() {
          name='q'
          value={query}
          onChange={handleParam(setQuery)}
-         placeholder='Search'
-         aria-label='Search'
+         placeholder='Rastrear encomenda'
+         aria-label='Campo de texto Rastrear encomenta'
        />
        </div>
        <button>Rastrear</button>
@@ -134,15 +132,14 @@ export default function Home() {
           height: 56px;
           border-radius: 4px;
           position: relative;
-          background-color: rgba(255,255,255,0.8);
+          background-color: rgba(255,255,255,1);
           transition: 0.3s all;
         }
         .field:hover {
           background-color: rgba(255, 255, 255, 0.8);
           box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
         }
-
-        .field.focussed input {
+        .field.focussed input { 
           padding: 24px 16px 8px 16px;
         }
         .field.focussed input + label {
@@ -164,7 +161,7 @@ export default function Home() {
           font-size: 16px;
           font-weight: 400;
           line-height: normal;
-          background-color: transparent;
+          background-color: rgba(76, 175, 80, 0.8);
           color: #282828;
           outline: none;
           box-shadow: 0px 4px 20px 0px transparent;
