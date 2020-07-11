@@ -1,30 +1,31 @@
-import Head from 'next/head';
-import Axios from 'axios';
-import {useQuery} from 'react-query';
-import {useState} from 'react';
-import {useRouter} from 'next/router';
+import Head from "next/head";
+import Axios from "axios";
+import { useQuery } from "react-query";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
-const preventDefault = f => e => {
-  e.preventDefault()
-  f(e)
-}
-const getObject = async () =>{
-  var object = window.location.pathname;
-  var url = "https://api-rastrei-correios.herokuapp.com/"+object;
-  const {data} = await Axios.get(url);
+const preventDefault = (f) => (e) => {
+  e.preventDefault();
+  f(e);
+};
+const getObject = async () => {
+  var object = window.location.pathname; 
+  console.log(object);
+  var url = "https://api-rastrei-correios.herokuapp.com" + object;
+  const { data } = await Axios.get(url);
   console.log(data);
   return data;
-}
+};
 
 export default function Home() {
-  const {data} = useQuery("objects",getObject)
-  const [query, setQuery] = useState('')
-  
-  const handleParam = setValue => e => setValue(e.target.value)
+  const { data } = useQuery("objects", getObject);
+  const [query, setQuery] = useState("");
+
+  const handleParam = (setValue) => (e) => setValue(e.target.value);
 
   const handleSubmit = preventDefault(() => {
     window.location = query;
-  })
+  });
 
   return (
     <div className="container">
@@ -34,42 +35,36 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className="title">
-          Busque sua encomenda
-        </h1>
-        
+        <div className="object-content">
+        <img src="/logo-280.png" alt="Logo Rastreio" />
+        <h1 className="title">Rastreio<span>.io</span></h1>
+        <h2 >Busque sua encomenda</h2>
+
         <form onSubmit={handleSubmit}>
-        <div className="field">
-       <input
-         type='text'
-         name='q'
-         value={query}
-         onChange={handleParam(setQuery)}
-         placeholder='Rastrear encomenda'
-         aria-label='Campo de texto Rastrear encomenta'
-       />
-       </div>
-       <button>Rastrear</button>
-     </form>
+          <div className="field">
+            <input
+              type="text"
+              name="q"
+              value={query}
+              onChange={handleParam(setQuery)}
+              placeholder="Rastrear encomenda"
+              aria-label="Campo de texto Rastrear encomenta"
+            />
+          </div>
+          <button>Rastrear</button>
+        </form>
+        </div>
         <div className="grid">
-          
-          {
-          
-          data&&
-        
-          <a className="card">
-            <h3>{data.objeto.numero ?data.objeto.numero:""} &rarr;</h3>
-            <p>{data.objeto.erro ?data.objeto.erro:"" }</p>
-          </a>
-          
-           
-          }
+          {data && (
+            <a className="card">
+              <h3>{data.objeto.numero ? data.objeto.numero : ""} &rarr;</h3>
+              <p>{data.objeto.erro ? data.objeto.erro : ""}</p>
+            </a>
+          )}
         </div>
       </main>
 
-      <footer>
-  
-      </footer>
+      <footer></footer>
 
       <style jsx>{`
         .container {
@@ -113,11 +108,11 @@ export default function Home() {
           color: inherit;
           text-decoration: none;
         }
-        button{
+        button {
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: #4CAF50; /* Green */
+          background-color: #4caf50; /* Green */
           border: none;
           color: white;
           padding: 1em 4em;
@@ -125,21 +120,21 @@ export default function Home() {
           text-decoration: none;
           display: inline-block;
           font-size: 28px;
-          margin:1em 0;
+          margin: 1em 0;
         }
         .field {
           width: 100%;
           height: 56px;
           border-radius: 4px;
           position: relative;
-          background-color: rgba(255,255,255,1);
+          background-color: rgba(255, 255, 255, 1);
           transition: 0.3s all;
         }
         .field:hover {
           background-color: rgba(255, 255, 255, 0.8);
           box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
         }
-        .field.focussed input { 
+        .field.focussed input {
           padding: 24px 16px 8px 16px;
         }
         .field.focussed input + label {
@@ -148,7 +143,7 @@ export default function Home() {
           color: #28cc70;
         }
         .field.locked {
-         pointer-events: none;
+          pointer-events: none;
         }
         .field input {
           width: 100%;
@@ -157,7 +152,7 @@ export default function Home() {
           padding: 0px 16px;
           border: none;
           border-radius: 4px;
-          font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
+          font-family: "Gotham SSm A", "Gotham SSm B", sans-serif;
           font-size: 16px;
           font-weight: 400;
           line-height: normal;
@@ -165,7 +160,8 @@ export default function Home() {
           color: #282828;
           outline: none;
           box-shadow: 0px 4px 20px 0px transparent;
-          transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out, 0.1s padding ease-in-out;
+          transition: 0.3s background-color ease-in-out,
+            0.3s box-shadow ease-in-out, 0.1s padding ease-in-out;
           -webkit-appearance: none;
         }
         .field input::-webkit-input-placeholder {
@@ -195,8 +191,7 @@ export default function Home() {
         .title {
           margin: 0;
           line-height: 1.15;
-          font-size:2rem;
-          margin-bottom: 2em;
+          font-size: 2rem;
         }
 
         .title,
@@ -267,6 +262,13 @@ export default function Home() {
             width: 100%;
             flex-direction: column;
           }
+          
+        .object-content{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          display:flex;
+          flex-direction: column;
         }
       `}</style>
 
@@ -285,6 +287,5 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
-
+  );
 }

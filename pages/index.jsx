@@ -1,41 +1,34 @@
+/* eslint-disable react/react-in-jsx-scope */
 import Head from "next/head";
-import Axios from "axios";
-import { useQuery } from "react-query";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 const preventDefault = (f) => (e) => {
   e.preventDefault();
   f(e);
 };
 
-const getObject = async () => {
-  var object = window.location.pathname;
-  var url = "https://api-rastrei-correios.herokuapp.com/" + object;
-  const { data } = await Axios.get(url);
-  return data;
-};
-
 export default function Home() {
-  const { data } = useQuery("objects", getObject);
   const [query, setQuery] = useState("");
-
   const handleParam = (setValue) => (e) => setValue(e.target.value);
-
   const handleSubmit = preventDefault(() => {
     window.location = query;
   });
 
   return (
-  <div className="container">
+    <div className="container">
       <Head>
         <title>Rastreio.io</title>
         <meta name="Description" CONTENT="Rastreio de encomenda" />
       </Head>
 
       <main>
-        <h1 className="title">Busque sua encomenda</h1>
-
+        <div className="home">
+          <img className="logo" src="/logo-280.png" alt="Logo Rastreio" />
+          <h1 className="title">
+            Rastreio<span>.io</span>
+          </h1>
+          <h2>Busque sua encomenda</h2>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="field">
             <input
@@ -43,8 +36,8 @@ export default function Home() {
               name="q"
               value={query}
               onChange={handleParam(setQuery)}
-              placeholder="Search"
-              aria-label="Search"
+              placeholder="Rastreie sua encomenda"
+              aria-label="Rastreie sua encomenda"
             />
           </div>
           <button>Rastrear</button>
@@ -96,6 +89,7 @@ export default function Home() {
           text-decoration: none;
         }
         button {
+          width:100%;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -144,7 +138,7 @@ export default function Home() {
           font-size: 16px;
           font-weight: 400;
           line-height: normal;
-          background-color: transparent;
+          background-color: rgba(76, 175, 80, 0.8);
           color: #282828;
           outline: none;
           box-shadow: 0px 4px 20px 0px transparent;
@@ -180,7 +174,6 @@ export default function Home() {
           margin: 0;
           line-height: 1.15;
           font-size: 2rem;
-          margin-bottom: 2em;
         }
 
         .title,
@@ -191,15 +184,6 @@ export default function Home() {
         .description {
           line-height: 1.5;
           font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
         }
 
         .grid {
@@ -243,7 +227,8 @@ export default function Home() {
         }
 
         .logo {
-          height: 1em;
+          height: 300px;
+          padding:auto;
         }
 
         @media (max-width: 600px) {
@@ -251,6 +236,17 @@ export default function Home() {
             width: 100%;
             flex-direction: column;
           }
+          .logo {
+            height: 200px;
+            
+          }
+        }
+        .home{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          display:flex;
+          flex-direction: column;
         }
       `}</style>
 

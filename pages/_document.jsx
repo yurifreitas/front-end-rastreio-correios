@@ -11,7 +11,7 @@ class MyDocument extends Document {
       <Html lang="pt-BR">
         <Head>
         <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.png" />
         <meta charset="utf-8" />
         </Head>
         <body>
